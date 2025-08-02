@@ -59,35 +59,3 @@ body {
   object-fit: cover;
 }
 
-
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    .feedback-form {
-      max-width: 400px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    label {
-      display: flex;
-      flex-direction: column;
-      font-weight: bold;
-    }
-    input, textarea {
-      padding: 8px;
-      font-size: 14px;
-      resize: vertical;
-    }
-    button {
-      padding: 10px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
