@@ -8,17 +8,18 @@ let formData = {
 
 // Відновлення збережених даних при завантаженні
 document.addEventListener('DOMContentLoaded', () => {
+  if (!form) return;
+
   const savedData = localStorage.getItem(STORAGE_KEY);
   if (savedData) {
     try {
       const parsedData = JSON.parse(savedData);
       formData = { ...formData, ...parsedData };
 
-      if (parsedData.email) {
-        form.elements.email.value = parsedData.email;
-      }
-      if (parsedData.message) {
-        form.elements.message.value = parsedData.message;
+      for (const [key, value] of Object.entries(parsedData)) {
+        if (form.elements[key]) {
+          form.elements[key].value = value;
+        }
       }
     } catch (e) {
       console.error('Error parsing saved data:', e);
@@ -26,11 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Обробка введення в форму
+// Обробка введення в форму з дебаунсом
+let saveTimeout;
 form.addEventListener('input', event => {
   const { name, value } = event.target;
   formData[name] = value.trim();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  }, 300); // 300 мс затримки
 });
 
 // Обробка сабміту форми
@@ -46,7 +52,6 @@ form.addEventListener('submit', event => {
 
   console.log(formData);
 
-  // Очистити
   localStorage.removeItem(STORAGE_KEY);
   formData = { email: '', message: '' };
   form.reset();
