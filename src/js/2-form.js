@@ -6,7 +6,7 @@ let formData = {
   message: '',
 };
 
-// Відновлення збережених даних при завантаженні
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Обробка введення в форму з дебаунсом
 let saveTimeout;
 form.addEventListener('input', event => {
   const { name, value } = event.target;
@@ -36,10 +35,10 @@ form.addEventListener('input', event => {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-  }, 300); // 300 мс затримки
+  }, 300); 
 });
 
-// Обробка сабміту форми
+
 form.addEventListener('submit', event => {
   event.preventDefault();
 
